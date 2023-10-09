@@ -34,26 +34,6 @@ class HuffNode {
 
 }
 
-class HuffmanTree {
-
-    HuffNode root;
-    int value;
-
-    HuffmanTree() {
-        this.root = null;
-        value = 0;
-    }
-
-    HuffmanTree(HuffNode left, HuffNode right) {
-
-        root.left = left;
-        root.right = right;
-        root.p = left.p + right.p;
-
-    }
-
-}
-
 class Tuple {
 
     char c;
@@ -203,6 +183,7 @@ public class Main {
         huffman.buildTree();
         huffman.createCompressedText();
         System.out.println(huffman.compressedText);
+        huffman.printTree(huffman.root, "");
 
     }
 
