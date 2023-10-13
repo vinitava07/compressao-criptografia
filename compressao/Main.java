@@ -1,4 +1,5 @@
 
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ class HuffNode {
         this.left = left;
         this.right = right;
         this.p = left.p + right.p;
-        this.element = '\"';
+        this.element = '\u001b';
     }
 
     public int getP() {
@@ -78,7 +79,11 @@ class Huffman {
         }
         main.sort(Comparator.comparingInt(HuffNode::getP));
         mergeNodes(main, aux);
-        this.root = main.get(0);
+        if (main.size() == 0) {
+            this.root = aux.get(0);
+        } else {
+            this.root = main.get(0);
+        }
         createHashMap(this.root, "");
         // printTree(this.root, "");
     }
@@ -92,7 +97,7 @@ class Huffman {
 
     private void createHashMap(HuffNode n, String s) {
         if (n != null) {
-            if (n.element != '\"') {
+            if (n.element != '\u001b') {
                 huffTable.put(n.element, s);
             }
             createHashMap(n.left, s + "0");
@@ -102,7 +107,7 @@ class Huffman {
 
     public void printTree(HuffNode n, String s) {
         if (n != null) {
-            if (n.element != '\"') {
+            if (n.element != '\u001b') {
                 System.out.println(s + " " + n.element);
             }
             printTree(n.left, s + "0");
@@ -177,13 +182,22 @@ public class Main {
 
     public static void main(String[] args) {
         // System.out.println("Hello");
+        try (RandomAccessFile raf = new RandomAccessFile("ListaAnime.csv", "rw")) {
 
-        Huffman huffman = new Huffman("ABCCDDEEEEABCCDDEEEEABCCDDEEEEABCCDDEEEE");
-        // Huffman huffman = new Huffman("cavalo");
-        huffman.buildTree();
-        huffman.createCompressedText();
-        System.out.println(huffman.compressedText);
-        huffman.printTree(huffman.root, "");
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 10000; i++) {
+                sb.append(raf.readLine());
+            }
+            // System.out.println(sb);
+            Huffman huffman = new Huffman(sb.toString());
+            // Huffman huffman = new Huffman("cavalo");
+            huffman.buildTree();
+            huffman.createCompressedText();
+            System.out.println(huffman.compressedText);
+            huffman.printTree(huffman.root, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
