@@ -185,8 +185,9 @@ public class MainHuffman {
         try (RandomAccessFile raf = new RandomAccessFile("ListaAnime.csv", "rw")) {
 
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 10000; i++) {
+            while (raf.getFilePointer() < raf.length() / 5) {
                 sb.append(raf.readLine());
+                sb.append('\n');
             }
             // System.out.println(sb);
             Huffman huffman = new Huffman(sb.toString());
@@ -194,7 +195,10 @@ public class MainHuffman {
             huffman.buildTree();
             huffman.createCompressedText();
             System.out.println(huffman.compressedText);
-            huffman.printTree(huffman.root, "");
+            System.out.println(
+                    "COMPRESSIONNNN: " + (((double) huffman.compressedText.toString().getBytes().length / 8)
+                            / (sb.toString().getBytes().length)));
+            // huffman.printTree(huffman.root, "");
         } catch (Exception e) {
             e.printStackTrace();
         }
