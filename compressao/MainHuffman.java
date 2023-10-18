@@ -56,6 +56,7 @@ class Huffman {
     HuffNode root;
     String rawText;
     StringBuilder compressedText;
+    StringBuilder decompressedText;
 
     Map<Character, String> huffTable;
 
@@ -176,6 +177,36 @@ class Huffman {
 
     }
 
+    public void decompressText() {
+
+        HuffNode aux = this.root;
+        boolean toRoot = false;
+        int len = compressedText.toString().length();
+        for (int i = 0; i <= len; i++) {
+            // System.out.print(compressedText.charAt(i));
+            if (i != len) {
+
+                if (aux.element != '\u001b') {
+                    System.out.print(aux.element);
+                    i--;
+                    aux = this.root;
+                } else {
+                    if (compressedText.charAt(i) == '0') {
+                        aux = aux.left;
+                    } else {
+
+                        aux = aux.right;
+                    }
+
+                }
+            }
+            else{
+                System.out.print(aux.element);
+            }
+
+        }
+    }
+
 }
 
 public class MainHuffman {
@@ -185,19 +216,30 @@ public class MainHuffman {
         try (RandomAccessFile raf = new RandomAccessFile("ListaAnime.csv", "rw")) {
 
             StringBuilder sb = new StringBuilder();
-            while (raf.getFilePointer() < raf.length() / 5) {
-                sb.append(raf.readLine());
-                sb.append('\n');
+            while (raf.getFilePointer() < raf.length()) {
+            sb.append(raf.readLine());
+            sb.append('\n');
             }
+            // for (int i = 0; i < 10000; i++) {
+            //     sb.append(raf.readLine());
+            //     sb.append('\n');
+
+            // }
             // System.out.println(sb);
             Huffman huffman = new Huffman(sb.toString());
             // Huffman huffman = new Huffman("cavalo");
             huffman.buildTree();
             huffman.createCompressedText();
-            System.out.println(huffman.compressedText);
+            // System.out.println(huffman.compressedText);
+            
+            System.out.println();
+            huffman.decompressText();
+            System.out.println();
             System.out.println(
-                    "COMPRESSIONNNN: " + (((double) huffman.compressedText.toString().getBytes().length / 8)
-                            / (sb.toString().getBytes().length)));
+            "COMPRESSIONNNN: " + (((double)
+            huffman.compressedText.toString().getBytes().length / 8)
+            / (sb.toString().getBytes().length)));
+
             // huffman.printTree(huffman.root, "");
         } catch (Exception e) {
             e.printStackTrace();
