@@ -16,24 +16,24 @@ class LZW {
     }
 
     public void createDictionary() {
-        // for (int i = 65; i <= 90; i++) { // Letras maiúsculas (A-Z)
-        // dictionary.put(String.valueOf((char) i), position);
+        for (int i = 65; i <= 90; i++) { // Letras maiúsculas (A-Z)
+            dictionary.put(String.valueOf((char) i), position);
+            position++;
+        }
+        for (int i = 97; i <= 122; i++) { // Letras minúsculas (a-z)
+            dictionary.put(String.valueOf((char) i), position);
+            position++;
+        }
+        for (int i = 48; i <= 57; i++) { // Números (0-9)
+            dictionary.put(String.valueOf((char) i), position);
+            position++;
+        }
+        // dictionary.put("a", 0);
         // position++;
-        // }
-        // for (int i = 97; i <= 122; i++) { // Letras minúsculas (a-z)
-        // dictionary.put(String.valueOf((char) i), position);
+        // dictionary.put("b", 1);
         // position++;
-        // }
-        // for (int i = 48; i <= 57; i++) { // Números (0-9)
-        // dictionary.put(String.valueOf((char) i), position);
+        // dictionary.put("w", 2);
         // position++;
-        // }
-        dictionary.put("a", 0);
-        position++;
-        dictionary.put("b", 1);
-        position++;
-        dictionary.put("w", 2);
-        position++;
 
     }
 
@@ -42,25 +42,26 @@ class LZW {
         char k;
         boolean append = false;
         int cont = 0;
-        StringBuffer pattern = new StringBuffer();
-        for (int i = 0; i < rawText.length()-1;) {
+        StringBuilder pattern = new StringBuilder();
+        String toAdd;
+        for (int i = 0; i < rawText.length();) {
             pattern.append(rawText.charAt(i));
             cont = i;
-            while (dictionary.containsKey(pattern.toString()) && i+1 < rawText.length()) {
-                i++;
+            while (dictionary.containsKey(pattern.toString()) && ++i < rawText.length()) {
                 pattern.append(rawText.charAt(i));
             }
-            System.out.println("pre append: " + pattern.substring(0, pattern.length() - 1));
-            System.out.println(compressedTxt
-                    .append(String.valueOf(dictionary.get(pattern.substring(0, pattern.length() - 1))) + " "));
-            System.out.println("patter len: " + pattern.length());
-            System.out.println("i: " + cont);
-            System.out.println("pos append: " + pattern);
+            if (i < rawText.length()) {
+                toAdd = (pattern.substring(0, pattern.length() - 1));
+            } else {
+                toAdd = (pattern.substring(0, pattern.length()));
+            }
+            compressedTxt.append(String.valueOf(dictionary.get(toAdd) + " "));
             dictionary.put(pattern.toString(), position++);
             pattern.setLength(0);
 
         }
-        System.out.println(compressedTxt);
+        System.out.println("raw: " + rawText);
+        System.out.println("final " + compressedTxt);
         System.out.println(dictionary.keySet());
 
     }
@@ -75,12 +76,9 @@ public class Main {
     public static void main(String[] args) {
 
         String texto = "wabbawabba";
+        // String texto = "abab";
         LZW lzw = new LZW(texto);
-        StringBuilder str = new StringBuilder();
         lzw.compression();
-        // for (int i = 0; i < lzw.position; i++) {
-        // System.out.println(lzw.dictionary.keySet());
-        // }
 
     }
 }
