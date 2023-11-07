@@ -210,23 +210,23 @@ public class MainHuffman {
     public static void main(String[] args) {
         // System.out.println("Hello");
         try (RandomAccessFile raf = new RandomAccessFile("ListaAnime.csv", "rw")) {
-
+            RandomAccessFile raf2 = new RandomAccessFile("compress.bin", "rw");
             StringBuilder sb = new StringBuilder();
             // while (raf.getFilePointer() < raf.length()) {
-            //     sb.append(raf.readLine());
-            //     sb.append('\n');
+            // sb.append(raf.readLine());
+            // sb.append('\n');
             // }
             for (int i = 0; i < 1; i++) {
-            sb.append(raf.readLine());
-            // sb.append('\n');
+                sb.append(raf.readLine());
+                // sb.append('\n');
 
             }
             // System.out.println(sb);
-            Huffman huffman = new Huffman("abcabcabcccccccccc");
+            Huffman huffman = new Huffman("abfddsfsdfasdacdabcabccccccccc");
             // Huffman huffman = new Huffman("cavalo");
             huffman.buildTree();
             huffman.createCompressedText();
-            System.out.println(huffman.compressedText);
+
 
             System.out.println();
             huffman.decompressText();

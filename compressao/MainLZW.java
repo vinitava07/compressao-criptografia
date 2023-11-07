@@ -147,7 +147,7 @@ public class MainLZW {
             System.out.println("compressed bits: " + compressedBits);
             System.out.println("original bits: " + originalBits);
             System.out.println("compression rate: "
-                    + compressedBits / originalBits);
+                    + (1 - (compressedBits / originalBits)));
         } catch (Exception e) {
             e.printStackTrace();
         }
