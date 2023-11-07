@@ -1,2 +1,2 @@
 # compressao-criptografia
-Algorítimos de compressão e criptografia da disciplina AEDS 3
+Algorítimos de compressão e criptografia
