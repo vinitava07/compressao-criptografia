@@ -133,6 +133,7 @@ class BoyerMoore {
                 txtPointer = aux;
                 boolean diff = false;
                 count = 0;
+                jump = 1;
                 for (int j = pattSize; !diff && j >= 0; j--) {
 
                     // System.out.println(
@@ -161,6 +162,7 @@ class BoyerMoore {
         }
         if (found) {
             System.out.println("Padrão encontrado, inicio: " + (txtPointer + 1) + " fim: " + aux);
+            System.out.println(text.substring(txtPointer+1, aux));
         } else {
             System.out.println("Padrao não encontrado!");
         }
@@ -187,8 +189,7 @@ public class MainBoylerMoore {
                 sb.append('\n');
             }
             // System.out.println(sb);
-            BoyerMoore bm = new BoyerMoore(sb.toString(),
-                    "Heisei");
+            BoyerMoore bm = new BoyerMoore(sb.toString(),"Scissor Seven 2nd Season,Web,10.0,Sharefun Studio,\"Action, Comedy, Amnesia, Assassins, Birds, Chinese Animation\",4.24,2019.0");
             bm.searchPattern();
         } catch (Exception e) {
             e.printStackTrace();
