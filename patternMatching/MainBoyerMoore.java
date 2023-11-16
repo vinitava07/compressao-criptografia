@@ -172,7 +172,7 @@ class BoyerMoore {
 
 }
 
-public class MainBoylerMoore {
+public class MainBoyerMoore {
 
     public static void main(String[] args) {
 
@@ -182,7 +182,9 @@ public class MainBoylerMoore {
             StringBuilder sb = new StringBuilder();
             // for (int i = 0; i < 1; i++) {
             // sb.append(raf.readLine());
-            // sb.append('\n');
+            // sb.append('\n'//        HuffmanDAO huffmanDAO = new HuffmanDAO();
+//        huffmanDAO.compressFile("../resources/ListaAnime.csv");
+//        huffmanDAO.deCompressFile(););
             // }
             while (raf.getFilePointer() < raf.length()) {
                 sb.append(raf.readLine());
