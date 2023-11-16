@@ -66,35 +66,32 @@ class BoyerMoore {
                 aux--;
 
             }
+            boolean prefixFound = false;
             if (!found) {
-                boolean prefixFound = false;
                 int sufPos = pattern.lastIndexOf(suffix.toString());
                 int lastIndexOf = 0;
                 suffixAux = new StringBuilder(suffix);
                 auxPattern = new StringBuilder(pattern.substring(0, sufPos));
                 for (int j = 0; !prefixFound && j < suffix.length(); j++) {
                     lastIndexOf = auxPattern.lastIndexOf(suffixAux.toString());
-                    if (lastIndexOf != -1) {
-
+                    if (lastIndexOf == 0) {
                         // System.out.println("teste: " + (auxPattern.length() - lastIndexOf));
                         dsb[i] = (auxPattern.length() - lastIndexOf);
                         prefixFound = true;
-
                     }
                     auxPattern.append(suffixAux.charAt(0));
                     suffixAux.deleteCharAt(0);
                 }
 
             }
+            if (!prefixFound && !found) {
+                dsb[i] = pattern.length() - 1;
+            }
             found = false;
             prefixPos -= 1;
             suffix.insert(0, pattern.charAt(i));
 
         }
-        for (int i : dsb) {
-            // System.out.print(" " + i);
-        }
-        // System.out.println();
 
     }
 
@@ -162,7 +159,7 @@ class BoyerMoore {
         }
         if (found) {
             System.out.println("Padrão encontrado, inicio: " + (txtPointer + 1) + " fim: " + aux);
-            System.out.println(text.substring(txtPointer+1, aux));
+            System.out.println(text.substring(txtPointer + 1, aux));
         } else {
             System.out.println("Padrao não encontrado!");
         }
@@ -182,16 +179,17 @@ public class MainBoyerMoore {
             StringBuilder sb = new StringBuilder();
             // for (int i = 0; i < 1; i++) {
             // sb.append(raf.readLine());
-            // sb.append('\n'//        HuffmanDAO huffmanDAO = new HuffmanDAO();
-//        huffmanDAO.compressFile("../resources/ListaAnime.csv");
-//        huffmanDAO.deCompressFile(););
+            // sb.append('\n'// HuffmanDAO huffmanDAO = new HuffmanDAO();
+            // huffmanDAO.compressFile("../resources/ListaAnime.csv");
+            // huffmanDAO.deCompressFile(););
             // }
             while (raf.getFilePointer() < raf.length()) {
                 sb.append(raf.readLine());
                 sb.append('\n');
             }
             // System.out.println(sb);
-            BoyerMoore bm = new BoyerMoore(sb.toString(),"Scissor Seven 2nd Season,Web,10.0,Sharefun Studio,\"Action, Comedy, Amnesia, Assassins, Birds, Chinese Animation\",4.24,2019.0");
+            BoyerMoore bm = new BoyerMoore(sb.toString(),
+                    "Scissor Seven 2nd Season,Web,10.0,Sharefun Studio,\"Action, Comedy, Amnesia, Assassins, Birds, Chinese Animation\",4.24,2019.0");
             bm.searchPattern();
         } catch (Exception e) {
             e.printStackTrace();
