@@ -85,7 +85,7 @@ class BoyerMoore {
 
             }
             if (!prefixFound && !found) {
-                dsb[i] = pattern.length() - 1;
+                dsb[i] = pattern.length() - 2;
             }
             found = false;
             prefixPos -= 1;
@@ -188,8 +188,7 @@ public class MainBoyerMoore {
                 sb.append('\n');
             }
             // System.out.println(sb);
-            BoyerMoore bm = new BoyerMoore(sb.toString(),
-                    "Scissor Seven 2nd Season,Web,10.0,Sharefun Studio,\"Action, Comedy, Amnesia, Assassins, Birds, Chinese Animation\",4.24,2019.0");
+            BoyerMoore bm = new BoyerMoore(sb.toString(), "Dragon ball");
             bm.searchPattern();
         } catch (Exception e) {
             e.printStackTrace();

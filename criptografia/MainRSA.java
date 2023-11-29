@@ -68,25 +68,6 @@ class RSA {
 
         BigInteger e = null;
         e = privateKey.modInverse(z);
-        // BigInteger tt= new BigInteger("99009299940");
-        // for (BigInteger i = new BigInteger("1"); cont != 1 && i.compareTo(z) != 0; i
-        // = i.add(BigInteger.ONE)) {
-        // // System.out.println(i.multiply(privateKey).mod(z).toString(0) + " " +
-        // i.multiply(privateKey).bitLength());
-        // System.out.println(i.bitLength());
-
-        // if (i.compareTo(tt) == 0) {
-        // break;
-        // }
-        // if (i.multiply(privateKey).mod(z).equals(BigInteger.ONE)) {
-
-        // cont += 1;
-        // e = new BigInteger(i.toString(0));
-        // }
-        // // System.out.println("rodando");
-
-        // }
-
         return e;
     }
 
